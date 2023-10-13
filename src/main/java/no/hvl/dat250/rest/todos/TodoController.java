@@ -3,12 +3,11 @@ package no.hvl.dat250.rest.todos;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping
 public class TodoController {
 
   public static final String TODO_WITH_THE_ID_X_NOT_FOUND = "Todo with the id %s not found!";
@@ -22,8 +21,6 @@ public class TodoController {
     toDoList.add(properTodo);
     return properTodo;
   }
-
-
 
   @GetMapping("/todos/{id}")
   public Todo readTodo(@PathVariable Long id) {
@@ -53,15 +50,13 @@ public class TodoController {
   @DeleteMapping("/todos/{id}")
   public void deleteTodo(@PathVariable Long id) {
 
-    Iterator<Todo> iterator = toDoList.iterator();
-    while (iterator.hasNext()) {
-      Todo existingTodo = iterator.next();
+    for (Todo existingTodo : toDoList) {
       if (existingTodo.getId().equals(id)) {
-        iterator.remove();
+        toDoList.remove(existingTodo);
         return;
       }
     }
-
+    throw new NoSuchElementException(String.format(TODO_WITH_THE_ID_X_NOT_FOUND, id));
   }
 
 
