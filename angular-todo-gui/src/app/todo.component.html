@@ -1,0 +1,55 @@
+<!-- todo.component.html -->
+
+<div class="todo-container">
+  <h2>Todo List</h2>
+
+  <!-- Display the list of todos -->
+  <ul>
+    <li *ngFor="let todo of todos; let i = index" (click)="setActiveTodo(todo, i)" [class.active]="i === currentIndex">
+
+    </li>
+  </ul>
+
+  <!-- Details of the selected todo -->
+  <div *ngIf="currentTodo">
+    <h3>Todo Details</h3>
+
+    <p><strong>Description:</strong> {{ currentTodo.description }}</p>
+
+    <!-- You can also add buttons/functionalities to update or delete the currentTodo here -->
+  </div>
+
+  <!-- Message if no todo is selected -->
+  <div *ngIf="!currentTodo">
+    <p>Please click on a todo to view details.</p>
+  </div>
+
+  <!-- You can add a form to create new todos here -->
+</div>
+
+<style>
+  .todo-container {
+    width: 60%;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 2px 2px 12px #aaa;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    padding: 8px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+  }
+
+  .active {
+    background-color: #e0e0e0;
+  }
+</style>
